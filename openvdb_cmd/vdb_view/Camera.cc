@@ -7,7 +7,22 @@
 
 #include <cmath>
 
-#define GLFW_INCLUDE_GLU
+#if defined(_WIN32)
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#include <GL/glew.h>
+#define GLAPI extern
+#include <GL/glu.h>
+#else
+#include <GL/gl.h>
+#include <GL/glu.h>
+#endif
+
 #include <GLFW/glfw3.h>
 
 namespace openvdb_viewer {

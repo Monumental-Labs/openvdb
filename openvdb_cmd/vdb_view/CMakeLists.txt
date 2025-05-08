@@ -18,31 +18,53 @@ if(WIN32)
   find_package(GLEW REQUIRED)
 endif()
 
-# wraps find_package(glfw3) and sets the glfw target
-include(OpenVDBGLFW3Setup)
+find_package(glfw3 3.3 REQUIRED)
+find_package(OpenVDB REQUIRED CONFIG)
 
 set(SOURCE_FILES
-  main.cc
+  App.cc
   Camera.cc
-  ClipBox.cc
-  Font.cc
+  CoordAxes.cc
+  GridRenderer.cc
+  main.cc
   RenderModules.cc
   Viewer.cc
 )
 
+# Create console application (not WIN32 GUI)
 add_executable(vdb_view ${SOURCE_FILES})
+
+if(WIN32)
+  # Add Windows system libraries needed by GLFW
+  set(WINDOWS_SYSTEM_LIBS
+    user32
+    gdi32
+    shell32
+    winmm
+    setupapi
+    version
+    imm32
+  )
+  
+  target_compile_definitions(vdb_view PRIVATE 
+    -DGL_GLEXT_PROTOTYPES=1
+    -DGLFW_STATIC
+    -DGLEW_STATIC
+  )
+endif()
 
 target_link_libraries(vdb_view
   ${OPENVDB_BINARIES_DEPENDENT_LIBS}
   OpenGL::GL
-  OpenGL::GLU
   glfw
+  openvdb
 )
 
 if(WIN32)
-  target_link_libraries(vdb_view GLEW::GLEW)
+  target_link_libraries(vdb_view 
+    GLEW::GLEW
+    ${WINDOWS_SYSTEM_LIBS}
+  )
 endif()
-
-target_compile_definitions(vdb_view PRIVATE -DGL_GLEXT_PROTOTYPES=1)
 
 install(TARGETS vdb_view RUNTIME DESTINATION ${OPENVDB_INSTALL_BINDIR})

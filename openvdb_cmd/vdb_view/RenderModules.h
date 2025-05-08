@@ -13,11 +13,20 @@
 #include <string>
 #include <vector>
 
-#if defined(__APPLE__) || defined(MACOSX)
+#if defined(_WIN32)
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#include <GL/glew.h>
+#define GLAPI extern
+#include <GL/glu.h>
+#elif defined(__APPLE__) || defined(MACOSX)
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-#elif defined(_WIN32)
-#include <GL/glew.h>
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>

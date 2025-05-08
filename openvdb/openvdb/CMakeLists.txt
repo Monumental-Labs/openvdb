@@ -93,22 +93,25 @@ if(WIN32)
   endif()
 
   if(CMAKE_MSVC_RUNTIME_LIBRARY)
-    if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreaded" OR
-       CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDebug")
-      if(OPENVDB_CORE_SHARED)
-         message(WARNING "Unexpected value for the Windows CRT with target build artifacts."
-          "You are attempting to use the static CRT (/MT) with a dynamic configuration of OpenVDB."
-          "This is not recommended and may cause failures.")
+      # For static builds (using /MT)
+      if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreaded" OR
+         CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDebug")
+        if(OPENVDB_CORE_SHARED AND NOT VCPKG_TARGET_TRIPLET MATCHES "static")
+           message(WARNING "Unexpected value for the Windows CRT with target build artifacts."
+            "You are attempting to use the static CRT (/MT) with a dynamic configuration of OpenVDB."
+            "This is not recommended and may cause failures.")
+        endif()
       endif()
-    endif()
-    if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDLL" OR
-       CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDebugDLL")
-      if(OPENVDB_CORE_STATIC)
-         message(WARNING "Unexpected value for the Windows CRT with target build artifacts."
-          "You are attempting to use the dyanmic CRT (/MD) with a static configuration of OpenVDB."
-          "This is not recommended and may cause failures.")
+    
+      # For dynamic builds (using /MD)
+      if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDLL" OR
+         CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDebugDLL")
+        if(OPENVDB_CORE_STATIC AND VCPKG_TARGET_TRIPLET MATCHES "static")
+           message(WARNING "Unexpected value for the Windows CRT with target build artifacts."
+            "You are attempting to use the dynamic CRT (/MD) with a static configuration of OpenVDB."
+            "This is not recommended and may cause failures.")
+        endif()
       endif()
-    endif()
   endif()
 endif()
 
