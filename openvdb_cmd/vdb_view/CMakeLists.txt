@@ -19,13 +19,11 @@ if(WIN32)
 endif()
 
 find_package(glfw3 3.3 REQUIRED)
-find_package(OpenVDB REQUIRED CONFIG)
 
 set(SOURCE_FILES
-  App.cc
   Camera.cc
-  CoordAxes.cc
-  GridRenderer.cc
+  ClipBox.cc
+  Font.cc
   main.cc
   RenderModules.cc
   Viewer.cc

@@ -98,6 +98,8 @@ option(OPENVDB_FUTURE_DEPRECATION "Generate messages for upcoming deprecation" O
 option(OPENVDB_ENABLE_UNINSTALL "Adds a CMake uninstall target." ON)
 option(USE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." OFF)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Component dependency options
 cmake_dependent_option(USE_PKGCONFIG "Use pkg-config to search for dependent libraries." ON "NOT WIN32" OFF)
 option(USE_HOUDINI [=[
