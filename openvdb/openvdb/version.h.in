@@ -123,34 +123,48 @@
 
 /* Denotes whether VDB was built with IMath Half support */
 #ifndef OPENVDB_USE_IMATH_HALF
-#cmakedefine OPENVDB_USE_IMATH_HALF
+#ifdef OPENVDB_USE_IMATH_HALF
+#define OPENVDB_USE_IMATH_HALF
+#endif
 /* Denotes whether VDB was built against Imath 3+ */
-#cmakedefine OPENVDB_IMATH_VERSION
+#ifdef OPENVDB_IMATH_VERSION
+#define OPENVDB_IMATH_VERSION
+#endif
 #endif
 
 /* Denotes whether VDB was built with Blosc support */
 #ifndef OPENVDB_USE_BLOSC
-#cmakedefine OPENVDB_USE_BLOSC
+#ifdef OPENVDB_USE_BLOSC
+#define OPENVDB_USE_BLOSC
+#endif
 #endif
 
 /* Denotes whether VDB was built with ZLIB support */
 #ifndef OPENVDB_USE_ZLIB
-#cmakedefine OPENVDB_USE_ZLIB
+#ifdef OPENVDB_USE_ZLIB
+#define OPENVDB_USE_ZLIB
+#endif
 #endif
 
 /* Denotes whether VDB was built with Delayed Loading support */
 #ifndef OPENVDB_USE_DELAYED_LOADING
-#cmakedefine OPENVDB_USE_DELAYED_LOADING
+#ifdef OPENVDB_USE_DELAYED_LOADING
+#define OPENVDB_USE_DELAYED_LOADING
+#endif
 #endif
 
 /* Denotes whether VDB was built asserts enabled in VDB code */
 #ifndef OPENVDB_ENABLE_ASSERTS
-#cmakedefine OPENVDB_ENABLE_ASSERTS
+#ifdef OPENVDB_ENABLE_ASSERTS
+#define OPENVDB_ENABLE_ASSERTS
+#endif
 #endif
 
 /* Denotes whether VDB was built with explicit template instantiation */
 #ifndef OPENVDB_USE_EXPLICIT_INSTANTIATION
-#cmakedefine OPENVDB_USE_EXPLICIT_INSTANTIATION
+#ifdef OPENVDB_USE_EXPLICIT_INSTANTIATION
+#define OPENVDB_USE_EXPLICIT_INSTANTIATION
+#endif
 #endif
 
 /* Defines the macros for explicit template declarations. */
